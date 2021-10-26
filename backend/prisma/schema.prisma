@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ReminderConfig {
+  id               Int     @id @default(autoincrement())
+  send15DaysBefore Boolean @default(false)
+  send7DaysBefore  Boolean @default(false)
+  send1DaysBefore  Boolean @default(false)
+  vacine           Vacine? @relation(fields: [vacineId], references: [id])
+  vacineId         Int?    @unique
+}
+
+model Vacine {
+  id             Int             @id @default(autoincrement())
+  name           String
+  dose           Int
+  dataAplicacao  DateTime        @db.Date
+  user           User?           @relation(fields: [userId], references: [id])
+  userId         Int?            @unique
+  reminderConfig ReminderConfig?
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String
+  disabled Boolean @default(false)
+  vacina   Vacine?
+}

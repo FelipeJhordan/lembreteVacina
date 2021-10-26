@@ -4,6 +4,9 @@
   "description": "Api lembrete vacina",
   "main": "server.js",
   "dependencies": {
+    "@prisma/client": "^3.3.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "nodemailer": "^6.7.0",
@@ -13,8 +16,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "npx prisma migrate dev --name 'init'"
+    "dev": "ts-node-dev --exit-child server.ts",
+    "migrate": "npx prisma migrate dev --name 'init'",
+    "studio": "npx prisma studio"
   },
   "author": "Felipe Jhordan",
   "license": "ISC"
