@@ -1,0 +1,21 @@
+{
+  "name": "lembretevacina",
+  "version": "1.0.0",
+  "description": "Api lembrete vacina",
+  "main": "server.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemailer": "^6.7.0",
+    "prisma": "^3.3.0",
+    "typescript": "^4.4.4",
+    "ts-node-dev": "^1.1.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "npx prisma migrate dev --name 'init'"
+  },
+  "author": "Felipe Jhordan",
+  "license": "ISC"
+}
