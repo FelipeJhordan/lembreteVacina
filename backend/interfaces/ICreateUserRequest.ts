@@ -2,6 +2,7 @@ export default interface ICreateUserRequest {
     name: string,
     email: string,
     disabled?: boolean,
+    uuid: string,
     vacina: {
         name: string,
         dose: number,
