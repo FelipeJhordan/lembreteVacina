@@ -1,7 +1,8 @@
 import ICreateUserRequest from "../interfaces/ICreateUserRequest";
 import convertStringToDateBD from "../utils/convertDateStringToDateBD";
 import prismaClient from "./PrismaClientService";
-import { VerifyIfUserLogedService } from "./VerifyIfUserIsLogedService";
+import { UpdateDisableForUserService } from "./UpdateDisableForUserService";
+import { VerifyIfUserRegisteredService } from "./VerifyIfUserRegisteredService";
 
 type returnData = {
     statusHTTP: number,
@@ -11,7 +12,7 @@ type returnData = {
 
 class CreateUserAndVacineService {
     async execute(userRequest: ICreateUserRequest) {
-        const userExists = await new VerifyIfUserLogedService().execute(userRequest.email)
+        const userExists = await new VerifyIfUserRegisteredService().execute(userRequest.email)
         if (!!userExists) {
             return await this.updateUserAndVacine(userExists, userRequest)
         }
@@ -20,6 +21,7 @@ class CreateUserAndVacineService {
     }
 
     private async updateUserAndVacine(userByBD, { vacina }): Promise<returnData> {
+        await new UpdateDisableForUserService().execute(userByBD, false)
         const userUpdated = await prismaClient.vacine.update({
             data: {
                 dataAplicacao: convertStringToDateBD(vacina.dataAplicacao),

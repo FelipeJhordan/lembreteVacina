@@ -27,6 +27,7 @@ CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
+    `uuid` VARCHAR(191) NOT NULL,
     `disabled` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)

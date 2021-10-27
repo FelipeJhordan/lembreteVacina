@@ -1,0 +1,7 @@
+DATABASE_URL="mysql://user:felipe28042000f@port/nomebd"
+EMAIL_LOGIN="emailempresa@gmail.com"
+EMAIL_PASSWORD="senhaempresa"
+
+APP_PORT="3333"
+APP_ADDRESS="http://192.168.0.13"
+
