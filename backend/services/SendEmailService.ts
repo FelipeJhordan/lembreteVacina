@@ -14,7 +14,7 @@ type HtmlGenerateParams = {
 
 class SendEmailService {
     async execute() {
-        let today = moment()
+        let today = moment().format("YYYY-MM-D")
         const users = await new FindAllUsersNotDisabledService().execute()
         try {
             await Promise.all(users.map(async (user) => {
@@ -27,8 +27,11 @@ class SendEmailService {
                 }
                 else if (user.vacina.reminderConfig.send1DaysBefore
                     && Math.ceil(moment(user.vacina.dataAplicacao).diff(today, "days", true)) == 1) {
+                    console.log((moment(user.vacina.dataAplicacao).diff(today, "days", true)))
+                    console.log(today)
                     await SendEmailService.createEmailToSend(user, user.vacina, 1)
                 } else {
+                    console.log((moment(user.vacina.dataAplicacao).diff(today, "day", true)))
                     await new UpdateDisableForUserService().execute(user as unknown as IUserByBd, true)
                 }
             }))
@@ -38,6 +41,7 @@ class SendEmailService {
     }
 
     static async createEmailToSend(user: User, vacina: Vacine, dias) {
+        console.log("entrei")
         let html = await this.generateHTMl({ user, vacina, dias })
         let transporter = EmailConfig.getTransporter()
         await transporter.sendMail({
