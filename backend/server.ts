@@ -11,6 +11,5 @@ app.use(routes)
 
 app.listen(port, async () => {
     await rotineSendEmail()
-    console.log("Aplicação rolando")
 })
 

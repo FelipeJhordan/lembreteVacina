@@ -8,7 +8,6 @@ class DisableUserByEmailController {
             await new DisableUserByEmailService().execute(uuid)
             response.sendStatus(200)
         } catch (e) {
-            console.log("Erro ao desabilitar o usuário")
             console.log(e)
             response.sendStatus(400)
         }

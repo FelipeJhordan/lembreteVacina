@@ -27,11 +27,8 @@ class SendEmailService {
                 }
                 else if (user.vacina.reminderConfig.send1DaysBefore
                     && Math.ceil(moment(user.vacina.dataAplicacao).diff(today, "days", true)) == 1) {
-                    console.log((moment(user.vacina.dataAplicacao).diff(today, "days", true)))
-                    console.log(today)
                     await SendEmailService.createEmailToSend(user, user.vacina, 1)
                 } else {
-                    console.log((moment(user.vacina.dataAplicacao).diff(today, "day", true)))
                     await new UpdateDisableForUserService().execute(user as unknown as IUserByBd, true)
                 }
             }))
@@ -41,7 +38,6 @@ class SendEmailService {
     }
 
     static async createEmailToSend(user: User, vacina: Vacine, dias) {
-        console.log("entrei")
         let html = await this.generateHTMl({ user, vacina, dias })
         let transporter = EmailConfig.getTransporter()
         await transporter.sendMail({
@@ -57,7 +53,6 @@ class SendEmailService {
         const appAddress = process.env.APP_ADDRESS
         const appPort = process.env.APP_PORT
         const addressToCancel = appAddress + ":" + appPort + "/" + "api/v1/user/disable/" + htmlGenerateParams.user.uuid
-        console.log(addressToCancel)
         const { user, vacina, dias } = htmlGenerateParams
         const htmlToSent = `
                 <div> 
@@ -67,7 +62,6 @@ class SendEmailService {
                     <a href="${addressToCancel}">Não quero mais receber e-mail</a>
                 <div>
         `
-        console.log(htmlToSent)
         return htmlToSent
     }
 

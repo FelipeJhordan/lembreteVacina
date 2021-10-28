@@ -16,7 +16,6 @@ class EmailConfig {
     }
 
     private static createConfig() {
-        console.log(process.env.EMAIL_LOGIN)
         return nodemailer.createTransport({
             service: "gmail",
             port: 587,

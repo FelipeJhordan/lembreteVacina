@@ -12,7 +12,6 @@ class CreateUserAndVacineController {
                 user
             })
         } catch (e) {
-            console.log(e)
             response.status(400).send({
                 message: "Erro ao criar"
             })
