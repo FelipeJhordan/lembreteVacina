@@ -1,12 +1,17 @@
 import { ButtonBack } from '../../components/ButtonBack'
-import { FormSection, Field, Form as MyForm } from './styles'
 import {
-    ErrorMessage,
-    Formik,
-} from 'formik'
-import { Fetch as api } from '../../services/api'
-import { Http_Methods } from '../../models/methods'
+    WrapperButton,
+    FormSection,
+    Input,
+    InputGroup,
+    ButtonSubmit,
+    Checkbox,
+    Form as MyForm,
+    TitleForm
+} from './styles'
+import { Formik, ErrorMessage as ErrorMessageFormik } from 'formik'
 import { schema } from './schema'
+import { saveUser } from '../../services/UserSaveService'
 
 interface IMyFormValues {
     name: string,
@@ -21,6 +26,14 @@ interface IMyFormValues {
             send1DaysBefore: boolean
         }
     }
+}
+
+const WrapperErrorMessage = (props: { name: string }) => {
+    return (
+        <div className="wrapper-error-message">
+            <ErrorMessageFormik name={props.name} />
+        </div>
+    )
 }
 
 const Form = () => {
@@ -42,54 +55,59 @@ const Form = () => {
         <>
             <FormSection>
                 <ButtonBack />
-                <h2>
+                <TitleForm>
                     Formulário
-                </h2>
+                </TitleForm>
                 <div>
                     <Formik initialValues={initialValues}
                         validationSchema={schema}
                         onSubmit={async (values, actions) => {
-                            const resp = await api.request("user/save/", Http_Methods.POST, {
-                                body: JSON.stringify({ user: values })
-                            })
-                            console.log(JSON.stringify({ user: values }))
-                            console.log(resp)
+                            const resp = await saveUser(values)
                         }}>
                         {(formik) => (
                             <MyForm>
-                                <label htmlFor="name">Nome </label>
-                                <Field id="name" name="name" />
-                                <ErrorMessage name="name" />
-                                <br />
-                                <label htmlFor="email">E-mail </label>
-                                <Field id="email" name="email" />
-                                <ErrorMessage name="email" />
-                                <br />
-                                <label htmlFor="nomeVacina">Nome Vacina</label>
-                                <Field id="nomeVacina" name="vacina.name" />
-                                <ErrorMessage name="vacina.name" />
-                                <br />
-                                <label htmlFor="dose">Dose</label>
-                                <Field id="dose" name="vacina.dose" />
-                                <ErrorMessage name="vacina.dose" />
-                                <br />
-                                <label htmlFor="dataAplicacao">Data Aplicação</label>
-                                <Field id="dataAplicacao" type="date" name="vacina.dataAplicacao" />
-                                <div role="group" aria-labelledby="checkbox-group">
+                                <InputGroup>
+                                    <label htmlFor="name">Nome </label>
+                                    <Input id="name" name="name" />
+                                    <WrapperErrorMessage name="name" />
+                                </InputGroup>
+                                <InputGroup>
+                                    <label htmlFor="email">E-mail </label>
+                                    <Input id="email" name="email" />
+                                    <WrapperErrorMessage name="email" />
+                                </InputGroup>
+                                <InputGroup>
+                                    <label htmlFor="nomeVacina">Nome Vacina</label>
+                                    <Input id="nomeVacina" name="vacina.name" />
+                                    <WrapperErrorMessage name="vacina.name" />
+                                </InputGroup>
+                                <InputGroup>
+                                    <label htmlFor="dose">Dose</label>
+                                    <Input id="dose" name="vacina.dose" />
+                                    <WrapperErrorMessage name="vacina.dose" />
+                                </InputGroup>
+                                <InputGroup>
+                                    <label htmlFor="dataAplicacao">Data Aplicação</label>
+                                    <Input id="dataAplicacao" type="date" name="vacina.dataAplicacao" />
+                                    <WrapperErrorMessage name="vacina.dataAplicacao" />
+                                </InputGroup>
+                                <InputGroup checkInput role="group" aria-labelledby="checkbox-group">
                                     <label>
-                                        <Field type="checkbox" name="vacina.reminderConfig.send15DaysBefore" />
+                                        <Checkbox type="checkbox" name="vacina.reminderConfig.send15DaysBefore" />
                                         15 dias
                                     </label>
                                     <label>
-                                        <Field type="checkbox" name="vacina.reminderConfig.send7DaysBefore" />
+                                        <Checkbox type="checkbox" name="vacina.reminderConfig.send7DaysBefore" />
                                         7 dias
                                     </label>
                                     <label>
-                                        <Field type="checkbox" name="vacina.reminderConfig.send1DaysBefore" />
+                                        <Checkbox type="checkbox" name="vacina.reminderConfig.send1DaysBefore" />
                                         1 dia
                                     </label>
-                                </div>
-                                <button type="submit" disabled={!(formik.isValid)}>Enviar</button>
+                                </InputGroup>
+                                <WrapperButton>
+                                    <ButtonSubmit type="submit" disabled={!(formik.isValid)}><span>Enviar</span></ButtonSubmit>
+                                </WrapperButton>
                             </MyForm>
                         )}
                     </Formik>

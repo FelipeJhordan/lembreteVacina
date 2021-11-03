@@ -1,12 +1,5 @@
 import styled from "styled-components";
 
-
-const Main = styled.div`
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-image: linear-gradient(180deg, #a696d2 0, #867abe 25%, #635da8 50%, #3b4293 75%, #002c80 100%);
-    `
 const Header = styled.header`
     height: 10vh;
     opacity: 0.12;
@@ -26,11 +19,14 @@ const Section = styled.section`
          align-items: center;
          justify-content: center;
     }
+
+    @media(max-height: 900px) and (max-width: 700px) {
+        width: 85%;
+    }
 `
 
 export {
     Header,
-    Main,
     Footer,
     Section
 }

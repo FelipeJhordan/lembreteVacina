@@ -5,7 +5,7 @@ class VerifyIfUserRegisteredService {
         let field = (!!email ? "email" : "uuid")
         const user = await prismaClient.user.findFirst({
             where: {
-                [field]: email || uuid
+                [field]: email || uuid,
             }
         })
         return user

@@ -33,6 +33,10 @@ const ButtonBackStyle = styled.button.attrs({
                     transform: rotate(0);
                 }
          }
+
+    @media(max-height: 900px) and (max-width: 700px) {
+        left: -50px;
+    }
 `
 
 export {

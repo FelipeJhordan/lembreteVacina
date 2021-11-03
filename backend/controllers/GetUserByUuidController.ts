@@ -7,7 +7,7 @@ class GetUserByUuidController {
         const { uuid } = request.params
         try {
             const user = await new VerifyIfUserRegisteredService().execute(null, uuid)
-            response.status(200).json({ user })
+            response.status(200).send({ user: user })
         } catch (e) {
             console.log(e)
             response.sendStatus(400)

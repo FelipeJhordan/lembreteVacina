@@ -1,14 +1,15 @@
 import { Routes } from "./Routes"
-import { Footer, Header, Main } from "./styles"
+import { Footer, Header } from "./styles"
 
 function App() {
 
   return (
-    <Main>
+    <>
       <Header>Home</Header>
       <Routes />
-      <Footer>Footer</Footer>
-    </Main>
+      <Footer></Footer>
+
+    </>
   )
 }
 

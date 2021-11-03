@@ -21,8 +21,14 @@ code {
     monospace;
 }
 
-html, body {
-  width: 100%;
+html, body, #root {
   height: 100vh;
+  width: 100%;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(180deg, #a696d2 0, #867abe 25%, #635da8 50%, #3b4293 75%, #002c80 100%);
 }
 `;
