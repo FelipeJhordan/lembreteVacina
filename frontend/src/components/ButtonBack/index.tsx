@@ -1,6 +1,5 @@
 import { useHistory } from "react-router"
 import { ButtonBackStyle } from "./styles"
-
 interface IPropsButtonBack {
     link?: string
 }
@@ -15,7 +14,7 @@ const ButtonBack: React.FC<IPropsButtonBack> = ({ link, children }) => {
     return (
         <>
             <ButtonBackStyle onClick={goToPreviousPath}>
-                {children || ""}
+                {children || "Voltar"}
             </ButtonBackStyle>
         </>
     )
